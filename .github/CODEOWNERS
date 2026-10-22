@@ -1,0 +1,5 @@
+# Require the repository owner to review all changes
+* @Yanqi-Luo
+
+# Protect the ownership configuration itself
+/.github/CODEOWNERS @Yanqi-Luo
