@@ -1,0 +1,39 @@
+name: Checks
+
+on:
+  pull_request:
+    paths: ["data/**", "scripts/**", "pipeline/**", ".github/workflows/**"]
+  push:
+    branches: [main]
+    paths: ["data/**", "scripts/**", "pipeline/**", ".github/workflows/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  papers:
+    name: Check data/papers.csv
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check data/papers.csv against data/schema.json
+        run: python scripts/check_papers.py
+
+  pipeline:
+    name: Pipeline tests (offline)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+      - name: Install
+        run: pip install -r pipeline/requirements.txt
+      - name: Run tests (no network or API calls)
+        working-directory: pipeline
+        run: python -m pytest tests -q

@@ -1,0 +1,156 @@
+{
+  "_doc": "Settings for `python -m usil_pipeline.discovery`. Weights only order the review queue; nothing is added to the map automatically.",
+  "weights": {
+    "relevance": 40,
+    "contribution": 25,
+    "novelty": 15,
+    "proximity": 10,
+    "recency": 10
+  },
+  "budget": {
+    "queue_size": 30,
+    "forward_per_seed": 50,
+    "max_s2_reference_lookups": 200
+  },
+  "forward_seeds": "core",
+  "keep_types": [
+    "article",
+    "preprint",
+    "proceedings-article",
+    "book-chapter",
+    "posted-content",
+    "book",
+    "dissertation",
+    "report"
+  ],
+  "terms": {
+    "procedure": [
+      "clarif",
+      "ask(ing)? (a |clarifying )?question",
+      "when to (ask|act|intervene|interrupt)",
+      "interrupt",
+      "mixed[- ]initiative",
+      "initiative",
+      "autonom",
+      "interven",
+      "take ?over",
+      "confirm",
+      "defer",
+      "deference",
+      "(return|hand(ing)?) (back )?control",
+      "shared autonomy",
+      "delegat",
+      "proactiv",
+      "oversight",
+      "human[- ]in[- ]the[- ]loop",
+      "assistance",
+      "permission"
+    ],
+    "individual": [
+      "personali[sz]",
+      "user[- ]specific",
+      "individual",
+      "per[- ]user",
+      "user model",
+      "user preference",
+      "each user",
+      "idiosyncra",
+      "user profile",
+      "\\bpersonas?\\b",
+      "adaptive (user )?interface",
+      "user[- ]adaptive"
+    ],
+    "learning": [
+      "learn",
+      "adapt",
+      "feedback",
+      "preference",
+      "online",
+      "continual",
+      "few[- ]shot",
+      "meta[- ]learn",
+      "bandit",
+      "reinforcement",
+      "reward model",
+      "elicit",
+      "active learning",
+      "correction"
+    ],
+    "evaluation": [
+      "benchmark",
+      "longitudinal",
+      "user stud(y|ies)",
+      "field study",
+      "simulated users?",
+      "user simulat",
+      "evaluation framework",
+      "metric"
+    ],
+    "context": [
+      "agent",
+      "assistant",
+      "robot",
+      "human[- ](ai|robot|agent|computer)",
+      "collaborat",
+      "interaction",
+      "dialog",
+      "conversational",
+      "copilot"
+    ],
+    "contribution": [
+      "we propose",
+      "we introduce",
+      "we present",
+      "we develop",
+      "benchmark",
+      "dataset",
+      "framework",
+      "algorithm",
+      "we study",
+      "we find",
+      "user study",
+      "experiment"
+    ]
+  },
+  "pillars": {
+    "P1": [
+      "few[- ]shot",
+      "online",
+      "continual",
+      "sparse",
+      "feedback",
+      "drift",
+      "correction",
+      "adapt"
+    ],
+    "P2": [
+      "memory",
+      "profile",
+      "representation",
+      "user model",
+      "transfer",
+      "generali[sz]",
+      "\\bpersonas?\\b",
+      "latent"
+    ],
+    "P3": [
+      "clarif",
+      "ask",
+      "interrupt",
+      "initiative",
+      "autonom",
+      "interven",
+      "confirm",
+      "defer",
+      "proactiv",
+      "control"
+    ],
+    "P4": [
+      "benchmark",
+      "evaluat",
+      "longitudinal",
+      "metric",
+      "user stud"
+    ]
+  }
+}

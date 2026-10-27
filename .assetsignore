@@ -1,0 +1,6 @@
+# Not part of the published site (Cloudflare Workers static assets)
+.git
+.github
+pipeline
+scripts
+README.md
