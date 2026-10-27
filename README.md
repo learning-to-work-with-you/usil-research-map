@@ -100,7 +100,7 @@ For a static application with `index.html` in the repository root and no build s
 
 1. In Cloudflare, open **Workers & Pages → usil-research-map**.
 2. Check the Git integration and ensure its production build tracks the `main` branch.
-3. Configure static-asset deployment from the repository root. For a Wrangler-based setup, an example deploy command is `npx wrangler deploy --assets .`. `.assetsignore` keeps `pipeline/`, `scripts/`, and `.github/` out of the published site.
+3. Static assets are served from the repository root, configured in `wrangler.jsonc` (deploy command: `npx wrangler deploy`; pull-request previews: `npx wrangler preview`, which needs the `previews` block in that file). `.assetsignore` keeps `pipeline/`, `scripts/`, `.github/`, and the config itself out of the published site.
 4. Under **Settings → Domains & Routes**, associate the Worker with the custom domain `map.learntoworkwithyou.org`.
 5. Push changes to `main` to trigger deployment, then verify the deployment's **Ready** status and the live URL.
 
