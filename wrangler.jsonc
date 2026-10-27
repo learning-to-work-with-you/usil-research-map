@@ -1,0 +1,11 @@
+// Cloudflare Workers configuration: the site is static assets served from the repository root.
+// .assetsignore keeps pipeline/, scripts/, .github/, and this file out of the published site.
+{
+  "name": "usil-research-map",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "."
+  },
+  // Required by `npx wrangler preview`, which Workers Builds runs for non-production branches.
+  "previews": {}
+}
