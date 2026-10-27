@@ -1,0 +1,63 @@
+{
+  "about": "Columns and allowed values of data/papers.csv. The site, scripts/check_papers.py, and the pipeline all read this file. Lists use ';'. Blank means unknown.",
+  "meta": {"version": "v1", "updated": "October 2026"},
+  "categories": [
+    "Mixed-initiative & autonomy",
+    "Human–AI collaboration",
+    "Preference & reward learning",
+    "Active elicitation & feedback",
+    "User modeling & personalization",
+    "Agent evaluation & benchmarks",
+    "Memory & procedural learning",
+    "Continual / online learning"
+  ],
+  "pillars": {
+    "P1": "Understanding · Learning from sparse, evolving evidence",
+    "P2": "Modeling · Representing and generalizing preferences",
+    "P3": "Interacting · Learning when to ask, explain, act, or defer",
+    "P4": "Measuring · Evaluating for each person"
+  },
+  "columns": [
+    {"name": "key", "group": "required", "help": "Unique id: lowercase first-author surname + year + word, e.g. liang2026pahf"},
+    {"name": "title", "group": "required"},
+    {"name": "authors", "group": "recommended", "help": "Comma- or semicolon-separated names"},
+    {"name": "year", "group": "required", "help": "Four digits"},
+    {"name": "venue", "group": "recommended"},
+    {"name": "url", "group": "required", "help": "The paper's page (arXiv, DOI, ACL Anthology, ...)"},
+    {"name": "category", "group": "required", "help": "One of the categories above"},
+    {"name": "pillars", "group": "required", "list": true, "values": ["P1", "P2", "P3", "P4"]},
+    {"name": "summary", "group": "required", "help": "1-3 sentences in your own words"},
+
+    {"name": "per_user", "group": "labels", "help": "Learns from an individual user's own evidence", "values": {"yes": "Yes", "partial": "Partial", "no": "No", "not-stated": "Not stated"}},
+    {"name": "interaction_decisions", "group": "labels", "list": true, "help": "Interaction decisions it learns, predicts, or evaluates; 'none' if it adapts only outputs",
+     "values": {"ask": "Ask or clarify", "confirm": "Confirm", "act": "Act or delegate", "suggest": "Suggest", "explain": "Explain",
+                "interrupt": "Interrupt or notify", "intervene": "Intervene or take over", "defer": "Defer or return control",
+                "communicate": "Communicate", "none": "None", "not-stated": "Not stated"}},
+    {"name": "across_sessions", "group": "labels", "help": "Adapts to a user across sessions or over time", "values": {"yes": "Yes", "partial": "Partial", "no": "No", "not-stated": "Not stated"}},
+    {"name": "evaluates_transfer", "group": "labels", "help": "Applies what it learned about a user to new tasks or contexts", "values": {"yes": "Yes", "partial": "Partial", "no": "No", "not-stated": "Not stated"}},
+
+    {"name": "what_is_learned", "group": "optional", "help": "Short phrase"},
+    {"name": "user_evidence", "group": "optional"},
+    {"name": "usil_relation", "group": "optional", "help": "How it relates to USIL, 1-2 sentences"},
+    {"name": "open_question", "group": "optional", "help": "One open question it leaves for USIL"},
+    {"name": "notes", "group": "optional", "help": "Qualifiers for the labels, e.g. 'per_user: style-level only'"},
+
+    {"name": "paper_type", "group": "study", "values": {"method": "Method", "benchmark": "Benchmark, dataset, or environment", "user-study": "User study", "survey": "Survey or position", "theory": "Theory", "system": "System or framework"}},
+    {"name": "settings", "group": "study", "list": true, "values": {"coding-agent": "Coding agent", "web-gui-agent": "Web or GUI agent", "chat-assistant": "Chat assistant", "robot": "Embodied robot", "decision-support": "Decision support", "recommendation": "Recommendation", "education": "Education", "health": "Health", "productivity": "Productivity or office", "other": "Other"}},
+    {"name": "user_signals", "group": "study", "list": true, "values": {"edits": "Edits or corrections", "approvals": "Approvals or rejections", "takeovers": "Takeovers or interventions", "answers": "Answers to questions", "ratings": "Ratings or comparisons", "stated-preferences": "Stated preferences or profile", "behavior-history": "Implicit behavior or history", "persona": "Persona or demographics", "none": "None"}},
+    {"name": "user_representation", "group": "study", "values": {"profile-memory": "Natural-language profile or memory", "latent-vector": "Latent vector", "per-user-parameters": "Per-user parameters", "reward-model": "Reward or preference model", "rules": "Rules or permissions", "belief": "Belief distribution", "none": "None"}},
+    {"name": "preference_change", "group": "study", "values": {"fixed": "Assumes fixed preferences", "handles-drift": "Handles drift or change"}},
+    {"name": "personalization_unit", "group": "study", "values": {"individual": "Individual user", "group": "Group or persona", "repository": "Repository or project", "population": "Population"}},
+    {"name": "evaluation_users", "group": "study", "values": {"real": "Real people", "both": "Real and simulated", "simulated": "Simulated users only", "none": "No user evaluation"}},
+    {"name": "evaluation_scale", "group": "study", "help": "e.g. 24 participants over 2 weeks"},
+    {"name": "per_person_results", "group": "study", "values": {"yes": "Yes", "no": "No"}},
+    {"name": "interaction_cost_metrics", "group": "study", "list": true, "values": {"questions": "Questions asked", "interruptions": "Interruptions", "effort-time": "User effort or time", "trust": "Trust", "satisfaction": "Satisfaction or preference", "workload": "Workload", "none": "None"}},
+    {"name": "decision_factors", "group": "study", "list": true, "values": {"stakes": "Stakes", "reversibility": "Reversibility", "uncertainty": "Uncertainty", "permission": "Authorization or permission", "expertise": "User expertise", "interruptibility": "Workload or interruptibility", "none": "None"}},
+    {"name": "resources", "group": "study", "list": true, "help": "URLs of released code, data, or benchmarks"},
+
+    {"name": "annotation_source", "group": "provenance", "values": {"pipeline-fulltext": "Full text, by the pipeline", "pipeline-abstract": "Abstract, by the pipeline", "manual": "By hand", "pending": "Not yet annotated"},
+     "help": "pending: the four label columns may be blank; the paper is listed but not charted"},
+    {"name": "annotated_on", "group": "provenance", "help": "YYYY-MM-DD"},
+    {"name": "quotes_verified", "group": "provenance", "help": "Share of the pipeline's quotes found in the PDF, 0-1"}
+  ]
+}

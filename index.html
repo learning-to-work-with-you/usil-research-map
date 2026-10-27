@@ -4,16 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="An annotated map of the research behind User-Specific Interaction Learning (USIL): how AI agents learn to work with each individual user.">
-<title>USIL Research Map</title>
+<title>USIL Research Map · User-Specific Interaction Learning</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="canonical" href="https://map.learntoworkwithyou.org/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="USIL Research Map: Connect the research. Find the gaps.">
+<meta property="og:description" content="An annotated, community-curated map of research on how AI agents learn to work with each person.">
+<meta property="og:url" content="https://map.learntoworkwithyou.org/">
+<meta property="og:image" content="https://map.learntoworkwithyou.org/assets/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "USIL Research Map", "description": "An annotated, community-curated map of research on User-Specific Interaction Learning (USIL): how AI agents learn to work with each individual user.", "url": "https://map.learntoworkwithyou.org/", "license": "https://creativecommons.org/licenses/by/4.0/", "isAccessibleForFree": true, "creator": {"@type": "Organization", "name": "User-Specific Interaction Learning (USIL)", "url": "https://learntoworkwithyou.org"}, "distribution": {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://map.learntoworkwithyou.org/data/papers.csv"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 <header class="topbar">
   <div class="wrap topbar-inner">
-    <a class="brand" href="https://learntoworkwithyou.org/"><span class="brand-mark" aria-hidden="true">U</span><span>USIL <span class="muted">Research Map</span></span></a>
+    <a class="brand" href="https://learntoworkwithyou.org/" aria-label="USIL Research Map, part of learntoworkwithyou.org"><img class="brand-logo" src="assets/usil-mark.png" alt="" width="48" height="47"><img class="brand-wordmark" src="assets/usil-wordmark.png" alt="USIL" width="94" height="29"><span class="brand-divider" aria-hidden="true"></span><span class="brand-text"><span class="brand-name">Research Map</span><span class="brand-sub">User-Specific Interaction Learning</span></span></a>
     <nav aria-label="Site">
       <a href="https://learntoworkwithyou.org/">Project home</a>
       <a href="https://learntoworkwithyou.org/position-paper/">Position paper</a>
@@ -24,57 +35,107 @@
 
 <main class="wrap">
   <section class="intro" aria-labelledby="page-title">
-    <p class="eyebrow">Learning to Work with You</p>
-    <h1 id="page-title">How should an agent learn to work with <em>you</em>?</h1>
+    <p class="eyebrow">User-Specific Interaction Learning</p>
+    <h1 id="page-title">A living map of how agents learn to work with <em>you</em></h1>
     <p class="lede">This map annotates the research behind <strong>User-Specific Interaction Learning (USIL)</strong>: work on learning about individual users, and work on when agents should ask, act, confirm, or defer. Each paper is labeled by what it learns, whether it learns from one person's evidence, and which interaction decisions it affects.</p>
+    <aside class="living" aria-label="About this living map">
+      <div class="living-head">
+        <span class="living-badge"><span class="pulse" aria-hidden="true"></span>Living map</span>
+        <span class="living-version" id="version"></span>
+      </div>
+      <p class="living-text"><strong>Built together, and never finished.</strong> This is not a fixed review. We keep finding papers, reading them in full, and correcting labels, and each version is a snapshot of where the field stands. Researchers in agent learning, HCI, personalization, and robotics shape it by suggesting papers, corrections, and open questions.</p>
+      <ol class="living-steps" aria-label="How the map grows">
+        <li><b>Discover</b>citation search and suggestions</li>
+        <li><b>Read</b>full-text annotation, quotes checked</li>
+        <li><b>Review</b>labels checked by people</li>
+        <li><b>Publish</b>a new version of the map</li>
+      </ol>
+      <p class="living-now" id="living-now"></p>
+      <p class="intro-actions"><a class="btn-suggest" href="https://github.com/learning-to-work-with-you/usil-research-map#contributing" target="_blank" rel="noopener">Suggest a paper or correction ↗</a> <a class="link-quiet" href="https://learntoworkwithyou.org/community#signup">Share an open question →</a></p>
+    </aside>
     <dl class="facts" id="facts"></dl>
-    <p class="notice"><strong>How to read the labels.</strong> Labels describe what each paper reports, not what its methods could support. Papers marked <span class="badge badge-full">Full text</span> were annotated from the full paper with quotes checked against the text; the fourteen in <a href="#closest">Closest predecessors</a> were rated by hand. Other labels come from the catalog and may change. "Not established" means the paper does not say, not that the capability is absent.</p>
+    <section class="how" aria-labelledby="how-title">
+      <p class="how-title" id="how-title">How to read this map</p>
+      <div class="how-grid">
+        <div>
+          <p class="how-head">What a label means</p>
+          <p class="how-lead">Each paper is labeled by what it <strong>reports</strong>, not by what its method could support.</p>
+          <ul class="how-list">
+            <li><span class="val val-yes">Yes</span><span>Reported, with evidence in the paper.</span></li>
+            <li><span class="val val-partial">Partial</span><span>Only in part, e.g. for one kind of decision or within a single session.</span></li>
+            <li><span class="val val-no">No</span><span>The paper clearly does not.</span></li>
+            <li><span class="val val-ns">Not stated</span><span>The paper was read and does not say. This is not the same as No.</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="how-head">Where the labels come from</p>
+          <ul class="how-list">
+            <li><span class="badge badge-full">Full text</span><span>Labeled by a language model from the whole paper; every supporting quote is checked against the PDF.</span></li>
+            <li><span class="badge badge-hand">By hand</span><span>Labeled by the map's contributors.</span></li>
+            <li id="how-pending" hidden><span class="badge badge-new">Not yet annotated</span><span>Listed in Browse, but left out of the charts until it is labeled.</span></li>
+          </ul>
+          <p class="how-fix">Spot a wrong label? <a href="https://github.com/learning-to-work-with-you/usil-research-map/issues" target="_blank" rel="noopener">Suggest a correction ↗</a></p>
+        </div>
+      </div>
+    </section>
   </section>
 
   <section class="section" id="overview" aria-labelledby="overview-title">
     <div class="section-head">
-      <h2 id="overview-title">The landscape at a glance</h2>
-      <p class="hint">Click any bar or cell to filter the papers below.</p>
+      <h2 id="overview-title">Where the work sits</h2>
+      <p class="hint" id="chart-scope"></p>
+    </div>
+    <figure class="chart" id="chart-cells">
+      <figcaption><h3>What is personalized, and for whom</h3><p>Each dot is a paper. Move the slider to watch the user-specific corner fill in.</p></figcaption>
+      <div class="plot"></div>
+    </figure>
+    <figure class="chart" id="chart-years">
+      <figcaption><h3>Papers per year</h3><p>Darkest: papers that learn interaction decisions from one person's evidence.</p></figcaption>
+      <div class="plot"></div>
+    </figure>
+  </section>
+
+  <section class="section" id="gap" aria-labelledby="gap-title">
+    <div class="section-head">
+      <h2 id="gap-title">How much of USIL each paper covers</h2>
+      <p class="hint">USIL combines four ingredients. Each is counted on its own; a paper can have any combination. Click a bar to list its papers.</p>
+    </div>
+    <figure class="chart" id="chart-coverage">
+      <div class="plot"></div>
+    </figure>
+  </section>
+
+  <section class="section" id="challenges" aria-labelledby="challenges-title">
+    <div class="section-head">
+      <h2 id="challenges-title">The four research challenges</h2>
+      <p class="hint">The challenges from the <a href="https://learntoworkwithyou.org/#agenda">USIL research agenda</a>, and how far the mapped work gets on each.</p>
+    </div>
+    <div class="challenge-grid" id="chart-challenges"></div>
+  </section>
+
+  <section class="section" id="more" aria-labelledby="more-title">
+    <div class="section-head">
+      <h2 id="more-title">More about the collection</h2>
+      <p class="hint">Click any bar to filter the papers below.</p>
     </div>
     <div class="charts">
-      <figure class="chart" id="chart-funnel">
-        <figcaption><h3>Where the connections thin out</h3><p>Papers that combine each successive USIL ingredient.</p></figcaption>
-        <div class="plot"></div>
-      </figure>
-      <figure class="chart" id="chart-cells">
-        <figcaption><h3>What is personalized, and for whom</h3><p>Outcome vs. procedure, population vs. individual.</p></figcaption>
-        <div class="plot"></div>
-      </figure>
-      <figure class="chart" id="chart-years">
-        <figcaption><h3>Papers per year</h3><p>Most of the work dates from 2023 onward.</p></figcaption>
-        <div class="plot"></div>
-      </figure>
       <figure class="chart" id="chart-decisions">
-        <figcaption><h3>Interaction decisions studied</h3><p>Papers that study each decision; a paper can count more than once.</p></figcaption>
+        <figcaption><h3>Interaction decisions studied</h3><p>How many papers learn each decision from one person's evidence. A paper can count more than once.</p></figcaption>
         <div class="plot"></div>
       </figure>
-      <figure class="chart" id="chart-status">
-        <figcaption><h3>How much is established</h3><p>Share of papers by what they report.</p></figcaption>
+      <figure class="chart" id="chart-users">
+        <figcaption><h3>Who the users are in evaluations</h3><p>Real people, simulated users, or no user evaluation.</p></figcaption>
+        <div class="plot"></div>
+      </figure>
+      <figure class="chart" id="chart-perperson">
+        <figcaption><h3>Results reported for each person</h3><p>Whether an evaluation judges each user against their own preferences, not only the average.</p></figcaption>
         <div class="plot"></div>
       </figure>
       <figure class="chart" id="chart-categories">
         <figcaption><h3>Papers by research area</h3><p>Each paper has one primary area.</p></figcaption>
         <div class="plot"></div>
       </figure>
-      <figure class="chart chart-wide" id="chart-matrix">
-        <figcaption><h3>Research areas against the USIL research challenges</h3><p>P1 learning from sparse and evolving evidence · P2 representing and generalizing preferences · P3 when to infer, ask, act, or defer · P4 evaluation.</p></figcaption>
-        <div class="plot"></div>
-      </figure>
     </div>
-  </section>
-
-  <section class="section" id="closest" aria-labelledby="closest-title">
-    <div class="section-head">
-      <h2 id="closest-title">Closest predecessors</h2>
-      <p class="hint">Ratings checked against each paper's full text (Table 1 of the position paper).</p>
-    </div>
-    <div class="table-scroll"><table class="t1" id="table1"></table></div>
-    <p class="legend-line"><span class="lv lv-yes">Yes</span><span class="lv lv-partial">Partial</span><span class="lv lv-no">No</span><span class="lv lv-ne">Not established</span> · "Cross-task transfer" means carrying what was learned about a user to new kinds of tasks.</p>
   </section>
 
   <section class="section" id="browse" aria-labelledby="browse-title">
@@ -88,8 +149,9 @@
       <label><span>Challenge</span><select id="f-pillar"><option value="">All</option></select></label>
       <label><span>Personalizes</span><select id="f-cell"><option value="">Any</option></select></label>
       <label><span>Decision</span><select id="f-decision"><option value="">Any</option></select></label>
+      <label><span>Paper type</span><select id="f-ptype"><option value="">Any</option></select></label>
+      <label><span>Evaluated with</span><select id="f-users"><option value="">Any</option></select></label>
       <label><span>Sort</span><select id="f-sort"><option value="year">Newest first</option><option value="title">Title A–Z</option><option value="area">Research area</option></select></label>
-      <label class="f-check"><input id="f-cited" type="checkbox"> Cited in the position paper</label>
       <button type="button" id="f-reset" class="btn-quiet">Clear filters</button>
     </form>
     <div class="chips" id="chips"></div>
@@ -97,7 +159,7 @@
   </section>
 
   <footer class="footer">
-    <p><strong>About this map.</strong> A living literature map, not a systematic review. Snapshot <span id="snapshot"></span>. Corrections and additions are welcome as pull requests to the repository: edit <code>data/source/usil_literature_map.csv</code> and run <code>python scripts/build_data.py</code>.</p>
+    <p><strong>About this map.</strong> A living literature map, not a systematic review. Version <span id="snapshot"></span>. Corrections and additions are welcome as pull requests to the repository: add or edit a row in <code>data/papers.csv</code>.</p>
   </footer>
 </main>
 
@@ -110,6 +172,6 @@
 </dialog>
 
 <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
-<script src="app.js"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>

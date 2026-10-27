@@ -12,41 +12,52 @@ The research map is a static application (HTML, CSS, and plain JavaScript, with 
 
 ## What the site shows
 
-- **The landscape at a glance.** Clickable charts that filter the papers by:
-  - how many papers combine each USIL ingredient (learning from an individual's evidence → adapting interaction decisions → across sessions → with a transfer evaluation);
-  - outcome vs. procedure × population vs. individual (the 2×2 framework in the position paper);
-  - papers per year, interaction decisions studied, research areas, and research areas × challenges P1–P4;
-  - how clearly each property is established ("not established" means the paper does not report it).
-- **Closest predecessors.** The 14 papers from Table 1 of the position paper, with ratings checked against the full text.
-- **Browse the papers.** Search and filter the corpus. Each paper's detail view includes metadata, a summary, its relationship to USIL, the overlap and open question for USIL, its role in the position paper, and provenance.
+- **Where the work sits.** The 2×2 framework (outcome vs. procedure × population vs. individual) with one dot per paper and a year slider, and papers per year.
+- **How much of USIL each paper covers.** The four USIL ingredients (learning from one person's evidence, adapting interaction decisions, adapting across sessions, testing transfer to new tasks), each counted on its own; how many of the four each paper covers; and the papers that have all four.
+- **The four research challenges.** For each challenge (P1–P4): paper counts, how many papers have each ingredient, active areas, and what full-text reading found (signals learned from, user representations, decision factors, who the evaluation users are).
+- **More about the collection.** Interaction decisions by whose evidence they are learned from, who the users are in evaluations, how few papers report results for each person, and research areas.
+- **Browse the papers.** Search and filter; each paper's detail view has a summary, its labels, study design, relation to USIL, an open question, and provenance.
+
+## Repository layout
+
+```text
+index.html, app.js, style.css, assets/   the site (static; no build step)
+data/papers.csv           the map: one row per paper. Edit this file; it is also the site's download.
+data/schema.json          the columns and their allowed values (read by the site, the check, and the pipeline)
+data/LICENSE.md           license for the annotations (CC BY 4.0)
+scripts/check_papers.py   checks papers.csv against the schema
+pipeline/                 optional: reads papers with Claude and fills in rows (see pipeline/README.md)
+.github/                  pull-request checks (papers.csv + pipeline tests) and the PR template
+LICENSE                   license for the code (MIT)
+```
 
 ## Data
 
-```text
-data/source/usil_literature_map.csv   editorial map, one row per paper (edit this)
-data/source/verification.json         full-text verification pipeline output (summaries, overlap, open question, quote-check rate)
-data/source/table1.json               full-text-checked ratings for Table 1 of the position paper
-scripts/build_data.py                 builds the two generated files below
-data/papers.json                      data read by the site (generated; do not edit by hand)
-data/papers.csv                       downloadable reader export (generated)
-```
+There is no build step: the site loads `data/papers.csv` and `data/schema.json` directly.
 
-After editing files in `data/source/`, rebuild and commit the generated files:
+### Columns of `papers.csv`
 
-```bash
-python scripts/build_data.py
-```
+| Group | Columns | Notes |
+|---|---|---|
+| Required | `key`, `title`, `year`, `url`, `category`, `pillars`, `summary` | `key`: lowercase surname + year + word, e.g. `liang2026pahf`. `category`: one of the eight areas in `schema.json`. `pillars`: any of `P1;P2;P3;P4`. |
+| Recommended | `authors`, `venue` | |
+| Chart labels | `per_user`, `interaction_decisions`, `across_sessions`, `evaluates_transfer` | Required unless `annotation_source` is `pending`. `yes` / `partial` / `no` / `not-stated`; decisions are a list (`ask;confirm`), `none`, or `not-stated`. |
+| Optional text | `what_is_learned`, `user_evidence`, `usil_relation`, `open_question`, `notes` | Shown in the paper's detail view. |
+| Study design | `paper_type` … `resources` | Usually filled by the pipeline; allowed values in `schema.json`. |
+| Provenance | `annotation_source`, `annotated_on`, `quotes_verified` | `pending`, `manual`, `pipeline-fulltext`, or `pipeline-abstract`. |
 
-### How the labels are derived
+Lists use `;`. A blank cell means unknown; `not-stated` means the paper was read and does not say.
+A `pending` paper is listed in Browse as "Not yet annotated" and joins the charts once labeled.
 
-- **Levels** (`per_user`, `across_sessions`, `transfer`) are collapsed from free text to **yes / partial / no / not established**. For the 14 Table 1 papers, hand-checked ratings override catalog values.
-- **Interaction decisions** are mapped from free text to a controlled vocabulary: ask or clarify, confirm, act or delegate, suggest, explain, interrupt or notify, intervene or take over, defer or return control, communicate. The rules are defined in `DECISION_RULES` in `scripts/build_data.py`.
-- **2×2 placement:** **individual** if the paper learns from an individual's evidence (yes or partial), **population** otherwise; **procedure** if it affects at least one interaction decision, **outcome** otherwise. Papers missing either label are not placed.
-- **Summaries** are drawn from full text where the verification pipeline read it, and otherwise from the catalog. Each detail view identifies its source.
+### How the site uses the labels
+
+- **2×2 placement:** individual if `per_user` is yes or partial, population if no; procedure if the paper has at least one interaction decision, outcome if `none`. Papers with `not-stated` in either are not placed.
+- **Ingredients:** a paper has an ingredient when its label is yes or partial (for decisions: at least one decision). Each ingredient is counted independently; no order is implied.
+- **Summaries and labels** come from the full text where `annotation_source` is `pipeline-fulltext`; the detail view says which.
 
 ### Provenance and caveats
 
-Labels describe what each paper reports, not what its methods could theoretically support. Annotations were drafted with the assistance of a language model instructed to support its judgments with quotations from papers; quotation matches were checked automatically against the available text and annotations were reviewed by the author. Table 1 ratings were checked by hand.
+Labels describe what each paper reports, not what its methods could theoretically support. Rows marked `pipeline-fulltext` were drafted by a language model from the paper's full text, with every supporting quotation checked automatically against the PDF (`quotes_verified` is the share found); they have not all been reviewed by hand.
 
 Errors and omissions are possible. Please open an issue or pull request with a correction and a paper section or page reference.
 
@@ -61,7 +72,16 @@ Contributions are welcome, including:
 - Revised classifications supported by evidence from the paper.
 - Improvements to search, filtering, visualizations, or accessibility.
 
-Please open a GitHub issue or submit a pull request to this repository. Changes are reviewed by maintainers before merging. If you change source data, run `python scripts/build_data.py` and include the updated generated files.
+Please open a GitHub issue or submit a pull request to this repository. Changes are reviewed by maintainers before merging.
+
+**To suggest a paper without editing anything**, open an issue with its link (arXiv, DOI, or publisher page) and,
+if you like, a sentence on why it belongs. A maintainer will add it.
+
+**To add a paper yourself**, either:
+- add a row to `data/papers.csv` with the required columns (set `annotation_source` to `pending` if you leave the labels blank), or
+- run the pipeline: `cd pipeline && python -m usil_pipeline add "<arXiv link, DOI, or title>"` (needs an Anthropic API key; see `pipeline/README.md`).
+
+Then run `python scripts/check_papers.py` (it also runs automatically on your pull request) and open a pull request.
 
 ## Run locally
 
@@ -70,7 +90,7 @@ python -m http.server 8000
 # Open http://localhost:8000/
 ```
 
-Opening `index.html` directly from disk may not work because the application fetches `data/papers.json`.
+Opening `index.html` directly from disk may not work because the application fetches `data/papers.csv`.
 
 ## Deployment: Cloudflare Workers
 
@@ -80,7 +100,7 @@ For a static application with `index.html` in the repository root and no build s
 
 1. In Cloudflare, open **Workers & Pages → usil-research-map**.
 2. Check the Git integration and ensure its production build tracks the `main` branch.
-3. Configure static-asset deployment from the repository root. For a Wrangler-based setup, an example deploy command is `npx wrangler deploy --assets .`.
+3. Configure static-asset deployment from the repository root. For a Wrangler-based setup, an example deploy command is `npx wrangler deploy --assets .`. `.assetsignore` keeps `pipeline/`, `scripts/`, and `.github/` out of the published site.
 4. Under **Settings → Domains & Routes**, associate the Worker with the custom domain `map.learntoworkwithyou.org`.
 5. Push changes to `main` to trigger deployment, then verify the deployment's **Ready** status and the live URL.
 
@@ -88,8 +108,15 @@ The Cloudflare configuration is separate from the main research initiative at `l
 
 ## Citing a snapshot
 
-The position paper refers to a fixed snapshot of this map. For each reproducible snapshot, create a Git release (for example, `v0.2`) and consider archiving it on Zenodo for a DOI. Update `meta.snapshot` in `scripts/build_data.py` to match the archived version.
+The map is versioned; the current version is `v1`. The version and "updated" date shown on the site come from
+`meta` in `data/schema.json`. To cite a fixed snapshot, update `meta`, create a matching Git release (for example
+`v1`), and consider archiving the release on Zenodo for a DOI.
 
 ## License
 
-**Suggested (not yet confirmed):** MIT for the site code and CC BY 4.0 for curated annotations in `data/`. Add the corresponding license files only once these terms are finalized. Summaries should be original paraphrases; do not reproduce copyrighted paper text without appropriate permission.
+- **Code** (site and pipeline): [MIT](LICENSE).
+- **Annotations** in `data/` (`papers.csv`, `schema.json`): [CC BY 4.0](data/LICENSE.md). Please credit the
+  USIL Research Map when you reuse them.
+
+Contributions are accepted under these same terms. Summaries are original paraphrases; the papers themselves
+remain under their authors' and publishers' terms.
